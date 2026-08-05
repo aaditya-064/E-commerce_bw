@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import ImageSchema from "./image.model";
 
 //* user schema
 const userSchema = new mongoose.Schema(
@@ -21,11 +22,11 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
     profile_image: {
-      type: String,
+      type: ImageSchema,
     },
     role: {
       type: String,
-      enum: ["USER", "ADMIN", "SUPER ADMIN"],
+      enum: ["USER", "ADMIN", "SUPER_ADMIN"],
       default: "USER",
     },
     phone: {

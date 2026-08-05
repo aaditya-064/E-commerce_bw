@@ -2,7 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import Category from "../models/category.model";
 import { catchAsync } from "../utils/catchAsync.utils";
 import AppError from "../utils/appError.utils";
+import { upload } from "../utils/cloudinary.utils";
 
+const folder = "/category";
 //* get all -> sapana
 
 export const getAll = catchAsync(
@@ -81,7 +83,12 @@ export const create = catchAsync(
       throw new AppError("Logo image file is required", 400);
     }
 
-    const logo = req.file.path;
+    // const logo = req.file.path;
+
+    // const { logo } = req.file as {
+    //   logo: Express.Multer.File;
+    // };
+    const { path, public_id } = await upload(req.file, folder);
 
     const existingCategory = await Category.findOne({ name });
     if (existingCategory) {
@@ -91,7 +98,10 @@ export const create = catchAsync(
     const category = new Category({
       name,
       description,
-      logo,
+      logo: {
+        path,
+        public_id,
+      },
     });
 
     await category.save();

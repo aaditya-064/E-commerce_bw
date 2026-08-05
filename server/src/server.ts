@@ -33,6 +33,7 @@ process.on("SIGINT", () => {
   });
 });
 
+// production (pm2, docker ...)
 process.on("SIGTERM", () => {
   console.log("SIGTERM received. Closing server...");
   server.close(async (error) => {

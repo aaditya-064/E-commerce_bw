@@ -128,35 +128,35 @@ export const login = async (
 //* get profile
 
 //* change profile image
-// export const changeProfileImage = catchAsync(
-//   async (req: Request, res: Response) => {
-//     const { _id } = req.user;
-//     const file = req.file;
-//     if (!file) {
-//       throw new Error("File Not Found");
-//     }
-//     const user = await User.find({ _id });
-//     if (!user) {
-//       throw new Error("User Not Found");
-//     }
-//     // await
-//     //! delete old image
-//     // if (user.profile_image && user.profile_image?.public_id) {
-//     //   await deleteFile(user.profile_image.public_id);
-//     // }
-//     // const { path, public_id } = await upload(file, uploadFolder);
-//     // user.profile_image = {
-//     //   path,
-//     //   public_id,
-//     // };
+export const changeProfileImage = catchAsync(
+  async (req: Request, res: Response) => {
+    const { _id } = req.user;
+    const file = req.file;
+    if (!file) {
+      throw new Error("File Not Found");
+    }
+    const user = await User.find({ _id });
+    if (!user) {
+      throw new Error("User Not Found");
+    }
+   
+    // ! delete old image
+     await if (user.profile_image && user.profile_image?.public_id) {
+      await deleteFile(user.profile_image.public_id);
+    }
+    const { path, public_id } = await upload(file, uploadFolder);
+    user.profile_image = {
+      path,
+      public_id,
+    };
 
-//     sendResponse(res, {
-//       message: "Profile updated",
-//       statusCode: 200,
-//       data: user,
-//     });
-//   },
-// );
+    sendResponse(res, {
+      message: "Profile updated",
+      statusCode: 200,
+      data: user,
+    });
+  },
+);
 
 //* change password
 

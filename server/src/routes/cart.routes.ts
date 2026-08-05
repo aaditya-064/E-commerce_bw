@@ -10,7 +10,7 @@ const router = express.Router();
 //* .single use garyo bhani "req.file" ma file aauxa
 //* .array use garyo bhani "req.files" ma files aauxa
 router.post("/", authenticate(All_Admins), create);
-router.post("/add-quantity", authenticate(All_Admins), addQuantity);
+router.post("/add", authenticate(All_Admins), addQuantity);
 // router.patch("/update", updateBrand);
 // router.delete("/delete", deleteBrand);
 

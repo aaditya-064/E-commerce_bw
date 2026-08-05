@@ -16,7 +16,7 @@ export const validate = (schema: z.ZodObject) => {
         return {
           path: issue.path.join("."),
           message: issue.message,
-        };
+      };
       });
       return next(new AppError("Validation Error", 400, errors));
     }
