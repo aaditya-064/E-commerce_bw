@@ -2,6 +2,9 @@
 import Button from "@/components/common/button";
 import Input from "@/components/common/input";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "../../schemas/auth.schema";
+import { TLogin } from "@/types/auth.types";
 
 const LoginForm = () => {
   // const [formData, setFormData] = useState({
@@ -9,17 +12,23 @@ const LoginForm = () => {
   //   password: "",
   // });
 
-  const { register, watch, handleSubmit } = useForm({
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
+    resolver: yupResolver(loginSchema),
   });
-
+  console.log(errors);
   // console.log("email", watch("email"));
   // console.log("password", watch("password"));
 
-  const onSubmit = (data: { email: string; password: string }) => {
+  const onSubmit = (data: TLogin) => {
     console.log("login submitted", data);
   };
 
@@ -37,13 +46,14 @@ const LoginForm = () => {
   // };
 
   return (
-    <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-1" onSubmit={handleSubmit(onSubmit)}>
       <Input
         label="Email"
         placeholder="johndoe@gmail.com"
-        type="email"
+        type="text"
         name="email"
         id="email"
+        error={errors?.email?.message}
         register={register}
       />
       <Input
@@ -52,6 +62,7 @@ const LoginForm = () => {
         type="password"
         name="password"
         id="password"
+        error={errors?.password?.message}
         register={register}
       />
       {/* button */}

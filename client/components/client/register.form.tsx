@@ -2,6 +2,7 @@
 import Button from "@/components/common/button";
 import Input from "@/components/common/input";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,16 @@ const RegisterForm = () => {
     password: "",
     phone: "",
     c_password: "",
+  });
+
+  const { register, watch, handleSubmit } = useForm({
+    defaultValues: {
+      full_name: "",
+      email: "",
+      password: "",
+      phone: "",
+      c_password: "",
+    },
   });
 
   const onChange = (
