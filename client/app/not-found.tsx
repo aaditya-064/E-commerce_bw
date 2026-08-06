@@ -1,9 +1,7 @@
-import React from "react";
-
 const NotFound = () => {
   return (
-    <main>
-      <h1>Page not found</h1>
+    <main className="bg-[#F1F0EC] flex justify-center">
+      <img src="/404.avif" className="h-[100vh] object-cover" />
     </main>
   );
 };
