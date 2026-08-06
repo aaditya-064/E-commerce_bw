@@ -9,6 +9,7 @@ const RegisterForm = () => {
     email: "",
     password: "",
     phone: "",
+    c_password: "",
   });
 
   const onChange = (
@@ -30,15 +31,13 @@ const RegisterForm = () => {
   };
 
   return (
-    <form className="flex flex-col gap-5" onSubmit={onSubmit}>
+    <form className="flex flex-col gap-3" onSubmit={onSubmit}>
       <Input
         label="Full Name"
         placeholder="John Doe"
         type="text"
         name="full_name"
         id="name"
-        onChange={onChange}
-        value={formData.full_name}
       />
       <Input
         label="Email"
@@ -46,17 +45,6 @@ const RegisterForm = () => {
         type="email"
         name="email"
         id="email"
-        onChange={onChange}
-        value={formData.email}
-      />
-      <Input
-        label="Password"
-        placeholder="enter your password"
-        type="password"
-        name="password"
-        id="password"
-        onChange={onChange}
-        value={formData.password}
       />
       <Input
         label="Phone Number"
@@ -64,8 +52,20 @@ const RegisterForm = () => {
         type="phone"
         name="phone"
         id="phone"
-        onChange={onChange}
-        value={formData.phone}
+      />
+      <Input
+        label="Password"
+        placeholder="enter your password"
+        type="password"
+        name="password"
+        id="password"
+      />
+      <Input
+        label="Confirm Password"
+        placeholder="Confirm your password"
+        type="password"
+        name="c_password"
+        id="c_password"
       />
       {/* button */}
       <div className="mt-5">
