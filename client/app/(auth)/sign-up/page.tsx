@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const SignUpPage = () => {
   return (
     <main className="bg-violet-50 min-h-full flex justify-center items-center">
-      <section className="shadow-sm shadow-primary-shadow border border-primary min-h-100 min-w-90 px-8 py-8 rounded-md flex flex-col gap-5">
+      <section className="shadow-sm shadow-primary-shadow border border-primary min-h-50 min-w-90 px-8 py-8 rounded-md flex flex-col gap-3">
         {/* page heading */}
         <div className="flex flex-col gap-1">
           <h1 className="text-3xl font-bold text-primary">Sign Up</h1>
