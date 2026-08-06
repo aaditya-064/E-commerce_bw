@@ -8,6 +8,7 @@ interface IProps {
   type: "text" | "password" | "email" | "phone";
   placeholder: string;
   register: UseFormRegister<any>;
+  error?: string;
 }
 const Input: FC<IProps> = ({
   id,
@@ -16,6 +17,7 @@ const Input: FC<IProps> = ({
   placeholder,
   type = "text",
   register,
+  error,
 }) => {
   return (
     <div className="flex flex-col gap-2">
@@ -26,9 +28,11 @@ const Input: FC<IProps> = ({
         type={type}
         id={id}
         placeholder={placeholder}
-        className="py-2.5 border border-primary px-2 rounded-sm focus:outline-primary text-[18px] placeholder:text-[18px]"
         {...register(name)}
+        className={`py-2.5 px-2 rounded-sm text-[18px] placeholder:text-[18px] border ${error ? "border-red-500 focus:outline-red-500" : "border-primary focus:outline-primary-active"} "
+        `}
       />
+      <small className="h-5 text-red-500 text-xs">{error}</small>
     </div>
   );
 };
