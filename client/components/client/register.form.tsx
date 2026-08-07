@@ -5,14 +5,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const RegisterForm = () => {
-  const [formData, setFormData] = useState({
-    full_name: "",
-    email: "",
-    password: "",
-    phone: "",
-    c_password: "",
-  });
-
   const { register, watch, handleSubmit } = useForm({
     defaultValues: {
       full_name: "",
@@ -23,32 +15,19 @@ const RegisterForm = () => {
     },
   });
 
-  const onChange = (
-    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    setFormData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  };
-
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    console.log(formData);
+  const onSubmit = (data: any) => {
+    console.log(data);
   };
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={onSubmit}>
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
       <Input
         label="Full Name"
         placeholder="John Doe"
         type="text"
         name="full_name"
         id="name"
+        register={register}
       />
       <Input
         label="Email"
@@ -56,6 +35,7 @@ const RegisterForm = () => {
         type="email"
         name="email"
         id="email"
+        register={register}
       />
       <Input
         label="Phone Number"
@@ -63,6 +43,7 @@ const RegisterForm = () => {
         type="phone"
         name="phone"
         id="phone"
+        register={register}
       />
       <Input
         label="Password"
@@ -70,6 +51,7 @@ const RegisterForm = () => {
         type="password"
         name="password"
         id="password"
+        register={register}
       />
       <Input
         label="Confirm Password"
@@ -77,6 +59,7 @@ const RegisterForm = () => {
         type="password"
         name="c_password"
         id="c_password"
+        register={register}
       />
       {/* button */}
       <div className="mt-5">
