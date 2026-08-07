@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../schemas/auth.schema";
 import { TLogin } from "@/types/auth.types";
+import axios from "axios";
+import { login } from "@/api/auth.api";
 
 const LoginForm = () => {
   // const [formData, setFormData] = useState({
@@ -29,7 +31,13 @@ const LoginForm = () => {
   // console.log("password", watch("password"));
 
   const onSubmit = (data: TLogin) => {
-    console.log("login submitted", data);
+    // console.log("login submitted", data);
+    try {
+      // axios.post("http://localhost:8080/api/v1/auth/register", data);
+      login(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // const onChange = (
