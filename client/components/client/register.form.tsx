@@ -1,6 +1,8 @@
 "use client";
 import Button from "@/components/common/button";
 import Input from "@/components/common/input";
+import { registerSchema } from "@/schemas/auth.schema";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -13,6 +15,7 @@ const RegisterForm = () => {
       phone: "",
       c_password: "",
     },
+    resolver: yupResolver(registerSchema),
   });
 
   const onSubmit = (data: any) => {
