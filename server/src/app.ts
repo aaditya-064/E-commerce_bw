@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import routes from "./routes";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 // @types/packageName
 
 //* creating app instances
@@ -11,6 +12,11 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "*",
+  }),
+);
 
 //! using routes
 app.use("/api/v1", routes);
