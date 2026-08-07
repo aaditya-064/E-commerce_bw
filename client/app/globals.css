@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  /* Orange Color Palette */
-  --orange-50: #fff7ed;
-  --orange-100: #ffedd5;
-  --orange-200: #fed7aa;
-  --orange-300: #fdba74;
-  --orange-400: #fb923c;
-  --orange-500: #f97316;
-  /* Primary Orange */
-  --orange-600: #ea580c;
-  --orange-700: #c2410c;
-  --orange-800: #9a3412;
-  --orange-900: #7c2d12;
+  --background: #fdfbf7;
+  --foreground: #1c1b18;
+  /* Aesthetic Soft Earthy Palette */
+  --orange-50: #faf6f0;
+  --orange-100: #f3ece2;
+  --orange-200: #e6d9c9;
+  --orange-300: #d8bfa6;
+  --orange-400: #c79e7b;
+  --orange-500: #ca7961;
+  /* Primary Aesthetic Terracotta */
+  --orange-600: #b5654d;
+  --orange-700: #96503b;
+  --orange-800: #783f2e;
+  --orange-900: #5c3022;
 }
 
 @theme inline {
@@ -29,8 +29,8 @@
   --color-primary-light: var(--orange-100);
   --color-primary-lighter: var(--orange-50);
 
-  --color-text-on-primary: #ffffff;
-  --color-primary-shadow: var(--color-orange-300);
+  --color-text-on-primary: #fdfbf7;
+  --color-primary-shadow: var(--orange-200);
 }
 
 /* @media (prefers-color-scheme: dark) {
