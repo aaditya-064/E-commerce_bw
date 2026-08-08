@@ -1,5 +1,11 @@
 import express from "express";
-import { addQuantity, create, get } from "../controller/cart.controller";
+import {
+  addQuantity,
+  create,
+  drop,
+  get,
+  removeProduct,
+} from "../controller/cart.controller";
 import { authenticate } from "../middlewares/auth.middleware";
 import { All_Admins } from "../types/enum.types";
 const router = express.Router();
@@ -12,7 +18,12 @@ const router = express.Router();
 router.get("/:id", authenticate(All_Admins), get);
 router.post("/", authenticate(All_Admins), create);
 router.post("/add", authenticate(All_Admins), addQuantity);
+router.delete(
+  "/remove/:userId/:productId",
+  authenticate(All_Admins),
+  removeProduct,
+);
+router.delete("/delete", authenticate(All_Admins), drop);
 // router.patch("/update", updateBrand);
-// router.delete("/delete", deleteBrand);
 
 export default router;
