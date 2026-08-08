@@ -23,6 +23,7 @@ router.delete(
   authenticate(All_Admins),
   removeProduct,
 );
+//delete whole cart
 router.delete("/delete", authenticate(All_Admins), drop);
 // router.patch("/update", updateBrand);
 
