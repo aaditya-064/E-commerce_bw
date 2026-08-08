@@ -1,5 +1,5 @@
 import express from "express";
-import { addQuantity, create } from "../controller/cart.controller";
+import { addQuantity, create, get } from "../controller/cart.controller";
 import { authenticate } from "../middlewares/auth.middleware";
 import { All_Admins } from "../types/enum.types";
 const router = express.Router();
@@ -9,6 +9,7 @@ const router = express.Router();
 
 //* .single use garyo bhani "req.file" ma file aauxa
 //* .array use garyo bhani "req.files" ma files aauxa
+router.get("/:id", authenticate(All_Admins), get);
 router.post("/", authenticate(All_Admins), create);
 router.post("/add", authenticate(All_Admins), addQuantity);
 // router.patch("/update", updateBrand);
