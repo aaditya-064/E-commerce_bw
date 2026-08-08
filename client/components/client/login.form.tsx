@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../schemas/auth.schema";
 import { TLogin } from "@/types/auth.types";
-import axios from "axios";
 import { login } from "@/api/auth.api";
+import { useMutation } from "@tanstack/react-query";
 
 const LoginForm = () => {
   // const [formData, setFormData] = useState({
@@ -26,18 +26,26 @@ const LoginForm = () => {
     },
     resolver: yupResolver(loginSchema),
   });
-  console.log(errors);
+
+  const { data, isPending, error, mutate } = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      console.log("on success");
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log("on error");
+      console.log(error);
+    },
+  });
+
+  // console.log(errors);
   // console.log("email", watch("email"));
   // console.log("password", watch("password"));
 
   const onSubmit = (data: TLogin) => {
-    // console.log("login submitted", data);
-    try {
-      // axios.post("http://localhost:8080/api/v1/auth/register", data);
-      login(data);
-    } catch (err) {
-      console.log(err);
-    }
+    console.log("login submitted", data);
+    // mutate(data);
   };
 
   // const onChange = (
