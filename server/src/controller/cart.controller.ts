@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import Cart from "../models/cart.model";
 import { catchAsync } from "../utils/catchAsync.utils";
 import { sendResponse } from "../utils/sendResponse.utils";
+import AppError from "../utils/appError.utils";
 // import User from "../models/user.model";
 
 export const create = catchAsync(
@@ -75,9 +76,48 @@ export const get = catchAsync(
   },
 );
 
-// export const remove = catchAsync(
-//   async(req: Request, res: Response, next: NextFunction) => {
-//     const {id, user} = req.body
-//     const cart = await
-//   }
-// )
+export const removeProduct = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userId, productId } = req.params;
+
+    const cart = await Cart.findOneAndUpdate(
+      { user: userId },
+      {
+        $pull: { items: { product: productId } },
+      },
+      { new: true },
+    ).populate([{ path: "user" }, { path: "items.product" }]);
+
+    if (!cart) {
+      throw new AppError("Cart not found", 404);
+    }
+
+    sendResponse(res, {
+      message: "Product removed successfully",
+      statusCode: 201,
+      data: cart,
+    });
+
+    // const cart = await Cart.findOneAndDelete({ product: productId });
+  },
+);
+
+export const drop = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userId, productId } = req.params;
+    const cart = await Cart.findOneAndDelete({
+      user: userId,
+      "items.product": productId,
+    });
+
+    if (!cart) {
+      throw new AppError("Cart not found", 404);
+    }
+
+    sendResponse(res, {
+      message: "Cart deleted successfully",
+      statusCode: 201,
+      data: cart,
+    });
+  },
+);
