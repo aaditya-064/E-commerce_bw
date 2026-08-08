@@ -48,7 +48,7 @@ const products = [
 ];
 
 const Cart = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   let total = 0;
   products.map((i) => {
     total += i.price;
