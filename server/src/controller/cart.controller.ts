@@ -52,3 +52,32 @@ export const addQuantity = catchAsync(
     }
   },
 );
+
+export const get = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const cart = await Cart.findOne({ user: id }).populate([
+      { path: "user" },
+      { path: "items.product" },
+    ]);
+    if (!cart) {
+      return sendResponse(res, {
+        message: "Cart not found",
+        statusCode: 404,
+        data: null,
+      });
+    }
+    sendResponse(res, {
+      message: "Cart fetched successfully",
+      statusCode: 201,
+      data: cart,
+    });
+  },
+);
+
+// export const remove = catchAsync(
+//   async(req: Request, res: Response, next: NextFunction) => {
+//     const {id, user} = req.body
+//     const cart = await
+//   }
+// )

@@ -121,6 +121,7 @@ export const login = async (
     });
   } catch (err) {
     next(err);
+    console.log(err);
   }
 };
 
