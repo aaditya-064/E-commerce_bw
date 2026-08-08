@@ -3,13 +3,13 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Ecommerce | Login",
+  title: "Ecommerce | Register",
   description: "Ecommerce  Register page",
 };
 
 const SignUpPage = () => {
   return (
-    <main className="bg-violet-50 min-h-full flex justify-center items-center">
+    <main className="bg-violet-50 min-h-screen flex justify-center items-center">
       <section className="shadow-sm shadow-primary-shadow border border-primary min-h-50 min-w-90 px-8 py-8 rounded-md flex flex-col gap-3">
         {/* page heading */}
         <div className="flex flex-col gap-1">
