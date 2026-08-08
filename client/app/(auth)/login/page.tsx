@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Ecommerce | Login",
-  description: "Ecommerce  Login page",
+  description: "Ecommerce Login page",
 };
 
 const client = new QueryClient();
