@@ -9,6 +9,7 @@ import { login } from "@/api/auth.api";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { All_Admins } from "@/types/enum.types";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -35,7 +36,11 @@ const LoginForm = () => {
     mutationKey: ["login"],
     onSuccess: (data) => {
       toast.success(data?.message ?? "Login successful");
-      router.replace("/");
+      if (All_Admins.includes(data.data.role)) {
+        router.replace("/admin");
+      } else {
+        router.replace("/");
+      }
     },
     onError: (error: any) => {
       toast.error(error?.message ?? "Login failed");

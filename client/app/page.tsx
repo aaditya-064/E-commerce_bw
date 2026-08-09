@@ -1,7 +1,9 @@
+import Nav from "@/components/client/navbar";
+
 export default function Home() {
   return (
     <main>
-      <h1>Hello world</h1>
+      <Nav />
     </main>
   );
 }
