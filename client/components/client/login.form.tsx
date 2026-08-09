@@ -7,8 +7,11 @@ import { loginSchema } from "../../schemas/auth.schema";
 import { TLogin } from "@/types/auth.types";
 import { login } from "@/api/auth.api";
 import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
   // const [formData, setFormData] = useState({
   //   email: "",
   //   password: "",
@@ -29,23 +32,25 @@ const LoginForm = () => {
 
   const { data, isPending, error, mutate } = useMutation({
     mutationFn: login,
+    mutationKey: ["login"],
     onSuccess: (data) => {
-      console.log("on success");
-      console.log(data);
+      toast.success(data?.message ?? "Login successful");
+      router.replace("/");
     },
-    onError: (error) => {
-      console.log("on error");
-      console.log(error);
+    onError: (error: any) => {
+      toast.error(error?.message ?? "Login failed");
     },
   });
 
+  // console.log(data, isPending, error);
   // console.log(errors);
   // console.log("email", watch("email"));
   // console.log("password", watch("password"));
 
   const onSubmit = (data: TLogin) => {
-    console.log("login submitted", data);
-    // mutate(data);
+    // console.log("login submitted", data);
+    mutate(data);
+    console.log("submit end");
   };
 
   // const onChange = (

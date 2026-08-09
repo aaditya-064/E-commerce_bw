@@ -3,10 +3,14 @@ import Button from "@/components/common/button";
 import Input from "@/components/common/input";
 import { registerSchema } from "@/schemas/auth.schema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { register as registerUser } from "@/api/auth.api";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const { register, watch, handleSubmit } = useForm({
     defaultValues: {
       full_name: "",
@@ -18,8 +22,24 @@ const RegisterForm = () => {
     resolver: yupResolver(registerSchema),
   });
 
+  const { data, isPending, error, mutate } = useMutation({
+    mutationFn: registerUser,
+    mutationKey: ["register"],
+    onSuccess: (data) => {
+      toast.success(data?.message ?? "Registered successfully");
+      router.replace("/login");
+    },
+    onError: (error: any) => {
+      toast.error(error?.message ?? "Registration failed");
+    },
+  });
+
+  console.log(data, isPending, error);
+
   const onSubmit = (data: any) => {
     console.log(data);
+    mutate(data);
+    console.log("submit end");
   };
 
   return (

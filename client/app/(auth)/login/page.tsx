@@ -21,9 +21,7 @@ const LoginPage = () => {
         </div>
 
         {/* login form */}
-        <QueryClientProvider client={client}>
-          <LoginForm />
-        </QueryClientProvider>
+        <LoginForm />
 
         {/* link to signup page */}
         <div>

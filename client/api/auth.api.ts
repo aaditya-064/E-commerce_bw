@@ -14,3 +14,16 @@ export const login = async (data: TLogin) => {
     throw err.response.data;
   }
 };
+export const register = async (data: TLogin) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/v1/auth/register",
+      data,
+    );
+    console.log(response);
+    return response.data;
+  } catch (err: any) {
+    // console.log(err);
+    throw err.response.data;
+  }
+};
