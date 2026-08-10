@@ -54,7 +54,7 @@ const Cart = () => {
     total += i.price;
   });
 
-  const removeProduct = (id) => {
+  const removeProduct = (id: any) => {
     console.log("Product removed", id);
   };
 

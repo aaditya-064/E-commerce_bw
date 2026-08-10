@@ -2,6 +2,8 @@
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { CiShoppingCart } from "react-icons/ci";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 
 const Nav = () => {
   const pathname = usePathname();
@@ -13,7 +15,7 @@ const Nav = () => {
     alt: "",
   };
   return (
-    <div className="flex flex-none justify-between bg-primary px-5">
+    <nav className="flex flex-none justify-between bg-primary px-5">
       <div className="flex items-center gap-10">
         <img
           onClick={() => router.push("/")}
@@ -21,26 +23,26 @@ const Nav = () => {
           alt=""
           className="w-15 cursor-pointer"
         />
-        <nav className="flex gap-7">
-          <button
-            onClick={() => router.push("/products")}
+        <div className="flex gap-7">
+          <Link
+            href={"/products"}
             className={`text-white font-medium p-2 cursor-pointer ${activeTab === "products" ? "bg-gray-800 rounded-lg transition-colors " : ""}`}
           >
             Products
-          </button>
-          <button
-            onClick={() => router.push("/category")}
+          </Link>
+          <Link
+            href={"/category"}
             className={`text-white font-medium p-2 cursor-pointer ${activeTab === "category" ? "bg-gray-800 rounded-lg transition-colors " : ""}`}
           >
             Category
-          </button>
-          <button
-            onClick={() => router.push("/brands")}
+          </Link>
+          <Link
+            href={"/brands"}
             className={`text-white font-medium p-2 cursor-pointer ${activeTab === "brands" ? "bg-gray-800 rounded-lg transition-colors " : ""}`}
           >
             Brands
-          </button>
-        </nav>
+          </Link>
+        </div>
       </div>
       <div className="flex items-center gap-4">
         <IoIosNotificationsOutline className="text-2xl cursor-pointer" />
@@ -50,14 +52,14 @@ const Nav = () => {
           }}
           className="text-2xl cursor-pointer"
         />
-        <img
+        <Image
           src={user.src || "/profile.png"}
           alt=""
           onClick={() => router.push("/profile")}
           className="w-10 cursor-pointer"
         />
       </div>
-    </div>
+    </nav>
   );
 };
 

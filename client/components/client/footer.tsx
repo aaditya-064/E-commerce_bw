@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CiFacebook, CiInstagram, CiTwitter, CiYoutube } from "react-icons/ci";
 import { FaGithub } from "react-icons/fa";
@@ -31,7 +32,7 @@ const Footer = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-7 shrink-0 mt-auto pb-5 bg-primary">
+    <footer className="flex flex-col gap-7 shrink-0 mt-auto pb-5 bg-primary">
       <div className="ml-10 -mb-7 pt-4">
         <img src={"/logo.png"} alt="logo" className="w-15 cursor-pointer" />
       </div>
@@ -47,12 +48,13 @@ const Footer = () => {
           {/* footer links */}
           <div className="flex flex-col gap-2 justify-start">
             {solutions.map((item, index) => (
-              <p
+              <Link
+                key={item.route}
+                href={item.route}
                 className="text-sm cursor-pointer text-white text-left"
-                onClick={() => router.push(item.route)}
               >
                 {item.label}
-              </p>
+              </Link>
             ))}
           </div>
         </div>
@@ -66,12 +68,13 @@ const Footer = () => {
           {/* footer links */}
           <div className="flex flex-col gap-2">
             {support.map((item, index) => (
-              <p
+              <Link
+                key={item.route}
+                href={item.route}
                 className="text-sm cursor-pointer text-white text-left"
-                onClick={() => router.push(item.route)}
               >
                 {item.label}
-              </p>
+              </Link>
             ))}
           </div>
         </div>
@@ -85,12 +88,13 @@ const Footer = () => {
           {/* footer links */}
           <div className="flex flex-col gap-2">
             {company.map((item, index) => (
-              <p
+              <Link
+                key={item.route}
+                href={item.route}
                 className="text-sm cursor-pointer text-white text-left"
-                onClick={() => router.push(item.route)}
               >
                 {item.label}
-              </p>
+              </Link>
             ))}
           </div>
         </div>
@@ -104,12 +108,13 @@ const Footer = () => {
           {/* footer links */}
           <div className="flex flex-col gap-2">
             {legal.map((item, index) => (
-              <p
+              <Link
+                key={item.route}
+                href={item.route}
                 className="text-sm cursor-pointer text-white text-left"
-                onClick={() => router.push(item.route)}
               >
                 {item.label}
-              </p>
+              </Link>
             ))}
           </div>
         </div>
@@ -131,7 +136,7 @@ const Footer = () => {
           <CiYoutube className="cursor-pointer text-white" />
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
