@@ -6,7 +6,14 @@ interface IProps {
   label: string;
   name: string;
   id: string;
-  type: "text" | "password" | "email" | "phone";
+  type:
+    | "text"
+    | "password"
+    | "email"
+    | "phone"
+    | "file"
+    | "number"
+    | "checkbox";
   placeholder: string;
   register: UseFormRegister<any>;
   error?: string;
