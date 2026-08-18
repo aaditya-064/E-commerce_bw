@@ -40,7 +40,7 @@ const Input: FC<IProps> = ({
           id={id}
           placeholder={placeholder}
           {...register(name)}
-          className={`py-2.5 px-2 rounded-sm text-[18px] placeholder:text-[18px] border ${error ? "border-red-500 focus:outline-red-500" : "border-primary focus:outline-primary-active"} "
+          className={`py-2 px-2 rounded-sm text-[14px] placeholder:text-[14px] border ${error ? "border-red-500 focus:outline-red-500" : "border-primary focus:outline-primary-active"} "
         `}
         />
         {type === "password" ? (

@@ -1,3 +1,4 @@
+"use client";
 import { create } from "@/api/category.api";
 import Button from "@/components/common/button";
 import Input from "@/components/common/input";
@@ -35,7 +36,14 @@ const ProductForm = () => {
   });
 
   const onSubmit = (data: TProduct) => {
-    mutate(data);
+    console.log(data);
+    // const formData = new FormData();
+    // formData.append("name", data.name);
+    // formData.append("price", data.price);
+    // formData.append("description", data.description);
+    // formData.append("cover_image", data.cover_image);
+    // formData.append("new_arrival", data.new_arrival);
+    // formData.append("is_featured", data.is_featured);
     console.log("category created");
   };
 

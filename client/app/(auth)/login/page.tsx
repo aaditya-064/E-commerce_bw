@@ -1,4 +1,4 @@
-import LoginForm from "@/components/client/login.form";
+import LoginForm from "@/components/client/form/login.form";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Metadata } from "next";
 import Link from "next/link";

@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import Input from "@/components/common/input";
 import Button from "@/components/common/button";
 import { useForm } from "react-hook-form";
@@ -10,12 +10,15 @@ import { TBrand } from "@/types/brand.types";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { All_Admins } from "@/types/enum.types";
+import { useAuth } from "@/hooks/auth.hook";
+import { useEffect } from "react";
 
 const BrandForm = () => {
   const router = useRouter();
   const {
     register,
     watch,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -34,7 +37,8 @@ const BrandForm = () => {
     mutationFn: create,
     mutationKey: ["Create"],
     onSuccess: (data) => {
-      if (All_Admins.includes(data.data.role)) {
+      console.log(data);
+      if (All_Admins.includes(data.data)) {
         router.push("/brands");
         toast.success(data?.message ?? "Brand Created Successfully");
       } else {
@@ -48,8 +52,12 @@ const BrandForm = () => {
   });
 
   const onSubmit = (data: TBrand) => {
-    console.log(data);
-    // mutate(data);
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("description", data?.description || "");
+
+    formData.append("logo", (data.logo as any)[0]);
+    mutate(formData);
     console.log("Brand Created");
   };
 
@@ -79,7 +87,7 @@ const BrandForm = () => {
           name="logo"
           id="logo"
           type="file"
-          placeholder="Enter the brand name"
+          placeholder=""
           register={register}
           error={errors?.logo?.message}
         />

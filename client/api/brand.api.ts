@@ -2,12 +2,17 @@ import { api } from ".";
 import { TBrand } from "@/types/brand.types";
 
 // create brand
-export const create = async (data: TBrand) => {
+export const create = async (data: FormData) => {
   try {
-    const response = await api.post("/brand/create", data);
+    console.log(data);
+    const response = await api.post("/brand/create", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error: any) {
-    throw error.response.data;
+    throw error?.response?.data;
   }
 };
 
@@ -17,7 +22,7 @@ export const get = async () => {
     const response = await api.get("/brand/");
     return response.data;
   } catch (error: any) {
-    throw error.response.data;
+    throw error?.response?.data;
   }
 };
 
@@ -33,7 +38,7 @@ export const update = async (data: TBrand, id: string) => {
     const response = await api.patch(`/brand/update/${id}`, data);
     return response.data;
   } catch (error: any) {
-    throw error.response.data;
+    throw error?.response?.data;
   }
 };
 
@@ -43,6 +48,6 @@ export const remove = async (id: string) => {
     const response = await api.delete(`/brand/delete/${id}`);
     return response.data;
   } catch (error: any) {
-    throw error.response.data;
+    throw error?.response?.data;
   }
 };

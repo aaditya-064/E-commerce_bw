@@ -1,12 +1,11 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CiFacebook, CiInstagram, CiTwitter, CiYoutube } from "react-icons/ci";
 import { FaGithub } from "react-icons/fa";
 
 const Footer = () => {
-  const router = useRouter();
-
   const solutions = [
     { label: "Marketing", route: "/marketing" },
     { label: "Analytics", route: "/analytics" },
@@ -32,9 +31,15 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="flex flex-col gap-7 shrink-0 mt-auto pb-5 bg-primary">
+    <footer className="flex flex-col gap-7 shrink-0 mt-auto pb-5 bg-[#0F172A] px-30">
       <div className="ml-10 -mb-7 pt-4">
-        <img src={"/logo.png"} alt="logo" className="w-15 cursor-pointer" />
+        <Image
+          height={500}
+          width={500}
+          src={"/logo.png"}
+          alt="logo"
+          className="w-15 cursor-pointer"
+        />
       </div>
 
       {/* footer navigations */}
@@ -42,7 +47,7 @@ const Footer = () => {
         {/* solutions */}
         <div className="flex flex-col gap-2 text-left">
           {/* footer header */}
-          <p className="text-sm font-semibold tracking-wide text-white">
+          <p className="text-sm font-semibold tracking-wide text-primary">
             Solutions
           </p>
           {/* footer links */}
@@ -62,7 +67,7 @@ const Footer = () => {
         {/* support */}
         <div className="flex flex-col gap-2">
           {/* footer header */}
-          <p className="text-sm font-semibold tracking-wide text-white">
+          <p className="text-sm font-semibold tracking-wide text-primary">
             Support
           </p>
           {/* footer links */}
@@ -82,7 +87,7 @@ const Footer = () => {
         {/* company */}
         <div className="flex flex-col gap-2">
           {/* footer header */}
-          <p className="text-sm font-semibold tracking-wide text-white">
+          <p className="text-sm font-semibold tracking-wide text-primary">
             Company
           </p>
           {/* footer links */}
@@ -102,7 +107,7 @@ const Footer = () => {
         {/* legal */}
         <div className="flex flex-col gap-2">
           {/* footer header */}
-          <p className="text-sm font-semibold tracking-wide text-white">
+          <p className="text-sm font-semibold tracking-wide text-primary">
             Legal
           </p>
           {/* footer links */}

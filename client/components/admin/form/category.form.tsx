@@ -1,3 +1,4 @@
+"use client";
 import { create } from "@/api/category.api";
 import Button from "@/components/common/button";
 import Input from "@/components/common/input";
@@ -42,13 +43,18 @@ const CategoryForm = () => {
   });
 
   const onSubmit = (data: TCategory) => {
-    mutate(data);
+    console.log(data);
+    // mutate(data);
     console.log("category created");
+  };
+
+  const onError = (errors: any) => {
+    console.log("validation error", errors);
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
         <Input
           label="Name"
           name="name"
@@ -77,7 +83,7 @@ const CategoryForm = () => {
           error={errors?.logo?.message}
         />
         <div>
-          <Button label="Create Brand" type="submit" />
+          <Button label="Create Category" type="submit" />
         </div>
       </form>
     </div>

@@ -6,7 +6,7 @@ export const create = async (data: TProduct) => {
     const response = await api.post("/product", data);
     return response.data;
   } catch (error: any) {
-    throw error.response.data;
+    throw error?.response?.data;
   }
 };
 
@@ -15,7 +15,7 @@ export const get = async () => {
     const response = await api.get("/product");
     return response.data;
   } catch (error: any) {
-    throw error.response.data;
+    throw error?.response?.data;
   }
 };
 
@@ -24,7 +24,7 @@ export const getById = async (id: string) => {
     const response = await api.get(`/${id}`);
     return response.data;
   } catch (error: any) {
-    throw error.response.data;
+    throw error?.response?.data;
   }
 };
 
@@ -33,7 +33,7 @@ export const getById = async (id: string) => {
 //     const response = await api.put(`/${id}`, data);
 //     return response.data;
 //   } catch (error: any) {
-//     throw error.response.data;
+//     throw error?.response?.data;
 //   }
 // };
 
@@ -42,6 +42,6 @@ export const getById = async (id: string) => {
 //     const response = await api.delete(`/${id}`);
 //     return response.data;
 //   } catch (error: any) {
-//     throw error.response.data;
+//     throw error?.response?.data;
 //   }
 // };
