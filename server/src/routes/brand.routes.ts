@@ -24,12 +24,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get("/", authenticate(All_Admins), getBrand);
-router.get("/user/:id", getBrandById);
+router.get("/:id", getBrandById);
 
 //* .single use garyo bhani "req.file" ma file aauxa
 //* .array use garyo bhani "req.files" ma files aauxa
 router.post("/create", upload.single("logo"), createBrand);
-router.patch("/update", updateBrand);
-router.delete("/delete", deleteBrand);
+router.patch("/update/:id", updateBrand);
+router.delete("/delete/:id", deleteBrand);
 
 export default router;

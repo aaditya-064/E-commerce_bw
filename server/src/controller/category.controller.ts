@@ -74,21 +74,17 @@ export const create = catchAsync(
     // authentication logic
 
     const { name, description } = req.body;
+    const file = req.file;
+    console.log(name, description);
 
     if (!name) throw new AppError("name is required", 400);
     if (!description) throw new AppError("description is required", 400);
 
     // 2. Check if the file was actually uploaded by Multer
-    if (!req.file) {
+    if (!file) {
       throw new AppError("Logo image file is required", 400);
     }
-
-    // const logo = req.file.path;
-
-    // const { logo } = req.file as {
-    //   logo: Express.Multer.File;
-    // };
-    const { path, public_id } = await upload(req.file, folder);
+    const { path, public_id } = await upload(file, folder);
 
     const existingCategory = await Category.findOne({ name });
     if (existingCategory) {

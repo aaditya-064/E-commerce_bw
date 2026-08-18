@@ -3,10 +3,12 @@ import { errorHandler } from "./middlewares/errorHandler.middleware";
 import routes from "./routes";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import ENV_CONFIG from "./config/env.config";
 // @types/packageName
 
 //* creating app instances
 const app = express();
+const allowed_origins = ENV_CONFIG.ALLOWED_ORIGINS?.split(",") ?? [];
 
 //! using middlewares
 app.use(express.json({ limit: "10mb" }));
@@ -14,7 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "*",
+    origin: allowed_origins,
+    credentials: true,
   }),
 );
 

@@ -15,13 +15,11 @@ export const authenticate = (roles?: Role[]) => {
     const authenticatedReq = req as AuthenticatedRequest;
     try {
       const cookies = req.cookies;
-      console.log(cookies);
       const access_token = cookies["access_token"];
       if (!access_token) {
         throw new Error("Unauthroized Login");
       }
       const decoded_data = verifyJwtToken(access_token);
-      console.log(decoded_data._id);
 
       if (!decoded_data) {
         throw new Error("Invalid Token. Login Required");

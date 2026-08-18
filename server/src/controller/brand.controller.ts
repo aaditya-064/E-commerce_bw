@@ -2,6 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import Brand from "../models/brand.model";
 import { catchAsync } from "../utils/catchAsync.utils";
 import { getPagination } from "../utils/pagination.utils";
+import { upload } from "../utils/cloudinary.utils";
+
+const uploadFolder = "/brands";
 
 export const getBrand = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -61,20 +64,25 @@ export const getBrand = catchAsync(
 export const createBrand = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, description } = req.body;
+    const file = req.file;
+
     if (!name) return new Error("No name");
+
     if (!description) return new Error("No desc");
+
     const findBrand = await Brand.findOne({ name });
     if (findBrand) {
       throw new Error("Brand Already Exists");
     }
-    // const logoFile = req.file;
-    // if (!logoFile) {
-    //   throw new Error("No logo");
-    // }
+    const { path, public_id } = await upload(file!!, uploadFolder);
+
     const brand = await Brand.create({
       name,
       description,
-      // logo: logoFile?.filename!!,
+      logo: {
+        path,
+        public_id,
+      },
     });
     res.status(201).json({
       message: "Brand Created",
