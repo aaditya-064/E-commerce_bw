@@ -7,8 +7,9 @@ import AppError from "../utils/appError.utils";
 
 export const create = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { user, items } = req.body;
-    const existingCart = await Cart.findOne({ user });
+    const { items } = req.body;
+    const user_id = req?.user?._id;
+    const existingCart = await Cart.findOne({ user: user_id });
     if (existingCart) {
       existingCart.items = items;
       await existingCart.save();
@@ -20,7 +21,7 @@ export const create = catchAsync(
         },
       });
     }
-    const cart = await Cart.create({ user, items });
+    const cart = await Cart.create({ user: user_id, items });
 
     sendResponse(res, {
       message: "Cart created successfully",
@@ -34,7 +35,8 @@ export const create = catchAsync(
 
 export const addQuantity = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { user, productId, quantity } = req.body;
+    const { productId, quantity } = req.body;
+    const user = req?.user?._id;
     const cart = await Cart.findOne({ user });
     if (!cart) {
       return sendResponse(res, {
@@ -56,7 +58,7 @@ export const addQuantity = catchAsync(
 
 export const get = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
+    const id = req?.user?._id;
     const cart = await Cart.findOne({ user: id }).populate([
       { path: "user" },
       { path: "items.product" },
@@ -78,7 +80,8 @@ export const get = catchAsync(
 
 export const removeProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { userId, productId } = req.params;
+    const { productId } = req.params;
+    const userId = req?.user?._id;
 
     const cart = await Cart.findOneAndUpdate(
       { user: userId },
@@ -104,7 +107,8 @@ export const removeProduct = catchAsync(
 
 export const drop = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { userId, productId } = req.params;
+    const { productId } = req.params;
+    const userId = req?.user?._id;
     const cart = await Cart.findOneAndDelete({
       user: userId,
       "items.product": productId,

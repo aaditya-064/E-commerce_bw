@@ -1,3 +1,5 @@
+import Brand from "../models/brand.model";
+import Category from "../models/category.model";
 import Product from "../models/product.model";
 import AppError from "../utils/appError.utils";
 import { catchAsync } from "../utils/catchAsync.utils";
@@ -98,15 +100,20 @@ export const create = catchAsync(async (req, res) => {
   if (!cover_image || !cover_image[0]) {
     throw new AppError("cover image is required", 400);
   }
+  const findBrand = await Brand.findOne({ name: brand });
+  const findCategory = await Category.findOne({ name: category });
+  if (!findBrand && !findCategory) {
+    throw new AppError("Brand and Category not found", 404);
+  }
 
   const product = new Product({
     name,
     description,
-    price,
-    brand,
-    category,
-    new_arrival,
-    is_featured,
+    price: Number(price),
+    brand: findBrand?._id,
+    category: findCategory?._id,
+    new_arrival: Boolean(new_arrival),
+    is_featured: Boolean(is_featured),
   });
 
   //* upload cover_image
@@ -250,9 +257,56 @@ export const update = catchAsync(async (req, res) => {
 });
 
 //* get by category
+export const getByCategory = catchAsync(async (req, res) => {
+  const { name } = req.params;
+
+  const category = await Category.findOne({ name });
+  if (!category) throw new AppError("Category not found", 404);
+
+  const products = await Product.find({ category: category?._id }).populate(
+    "category",
+  );
+
+  if (!products) {
+    throw new AppError("Products not found", 404);
+  }
+
+  sendResponse(res, {
+    message: "Product by category fetched",
+    statusCode: 201,
+    data: products,
+  });
+});
 
 //* get by brand
+export const getByBrand = catchAsync(async (req, res) => {
+  const { name } = req.params;
+
+  const brand = await Brand.findOne({ name });
+  if (!brand) throw new AppError("Brand not found", 404);
+  console.log(brand);
+  const products = await Product.find({ brand: brand?._id }).populate("brand");
+
+  if (!products) {
+    throw new AppError("Products not found", 404);
+  }
+  sendResponse(res, {
+    message: "Product by brand fetched",
+    statusCode: 201,
+    data: products,
+  });
+});
 
 //* get new arrivals
+export const newArrivals = catchAsync(async (req, res) => {
+  const newArrivals = await Product.find({ new_arrival: true });
+  if (!newArrivals) throw new AppError("New Arrivals not found", 404);
+
+  sendResponse(res, {
+    message: "Product by new arrivals fetched",
+    statusCode: 201,
+    data: newArrivals,
+  });
+});
 
 //* get featured

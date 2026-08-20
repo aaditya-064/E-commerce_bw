@@ -27,7 +27,7 @@ export const add = catchAsync(async (req, res, next) => {
   if (!productId) throw new AppError("Product ID is required", 400);
 
   const existingItem = await Wishlist.findOne({ user_id, productId });
-  if (!existingItem) {
+  if (existingItem) {
     throw new AppError("Product is already in your wishlist", 400);
   }
 
@@ -43,11 +43,15 @@ export const add = catchAsync(async (req, res, next) => {
 export const remove = catchAsync(async (req, res, next) => {
   const user_id = req?.user?._id;
   const { productId } = req.params;
+  console.log(user_id, productId);
 
   if (!user_id) throw new AppError("User ID is required", 400);
   if (!productId) throw new AppError("Product ID is required", 400);
 
-  const removeItem = await Wishlist.findOneAndDelete({ user_id, productId });
+  const removeItem = await Wishlist.findOneAndDelete({
+    user_id,
+    product: productId,
+  });
   if (!removeItem) {
     throw new AppError("Product not found", 404);
   }

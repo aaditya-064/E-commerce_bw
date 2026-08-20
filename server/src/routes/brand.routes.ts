@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get("/", authenticate(All_Admins), getBrand);
-router.get("/:id", getBrandById);
+router.get("/:id", authenticate(), getBrandById);
 
 //* .single use garyo bhani "req.file" ma file aauxa
 //* .array use garyo bhani "req.files" ma files aauxa

@@ -131,7 +131,6 @@ export const login = async (
 
 //* logout
 export const logout = catchAsync(async (req, res) => {
-  console.log("hello world");
   res.clearCookie("access_token", {
     httpOnly: ENV_CONFIG.NODE_ENV === "development" ? false : true,
     secure: ENV_CONFIG.NODE_ENV === "development" ? false : true,
@@ -148,7 +147,6 @@ export const logout = catchAsync(async (req, res) => {
 
 //* get profile
 export const getProfile = catchAsync(async (req, res) => {
-  console.log(req.user);
   const id = req.user._id;
   const user = await User.findById(id);
   if (!user) {
@@ -177,7 +175,6 @@ export const changeProfileImage = catchAsync(
       throw new Error("File Not Found");
     }
     const user = await User.find({ _id });
-    console.log(user);
     if (!user) {
       throw new Error("User Not Found");
     }
