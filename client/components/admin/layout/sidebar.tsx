@@ -7,6 +7,7 @@ import { TbCategoryPlus } from "react-icons/tb";
 import { IoCartOutline } from "react-icons/io5";
 import { IoExitOutline } from "react-icons/io5";
 import { CiSettings } from "react-icons/ci";
+import { FaBox } from "react-icons/fa";
 
 const overview = [
   {
@@ -25,6 +26,11 @@ const overview = [
     logo: TbCategoryPlus,
   },
   {
+    href: "/products",
+    label: "Products",
+    logo: FaBox,
+  },
+  {
     href: "/users",
     label: "Users",
     logo: LuUsers,
@@ -33,7 +39,7 @@ const overview = [
 
 const SideBar = () => {
   return (
-    <div className="flex flex-col gap-2 h-full bg-black">
+    <div className="flex flex-col gap-2 h-full w-59 fixed bg-black">
       <div className="flex gap-3 px-2 items-center pb-1.25 border-b border-gray-300 ">
         <Image height={50} width={50} alt="E-commerce" src={"/logo.png"} />
         <div className="flex flex-col text-xs">

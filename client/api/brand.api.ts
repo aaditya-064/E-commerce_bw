@@ -28,12 +28,12 @@ export const get = async () => {
 
 // get by brand id
 export const getById = async (id: string) => {
-  const response = await api.get(`/${id}`);
+  const response = await api.get(`/brand/${id}`);
   return response.data;
 };
 
 // update brand
-export const update = async (data: TBrand, id: string) => {
+export const update = async ({ id, data }: { id: string; data: FormData }) => {
   try {
     const response = await api.patch(`/brand/update/${id}`, data);
     return response.data;

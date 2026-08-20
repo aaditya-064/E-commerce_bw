@@ -11,7 +11,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const WishlistProvider = ({ children }: { children: React.ReactNode }) => {
-  const { isLoading, data, isError, error } = useQuery({
+  const { isLoading, data: getAllWishlist } = useQuery({
     queryFn: getWishlist,
     queryKey: ["get-wishlist"],
     retry: false,
@@ -23,6 +23,7 @@ const WishlistProvider = ({ children }: { children: React.ReactNode }) => {
       toast.success(response.message ?? "product added to wishlist");
     },
     onError: (error: any) => {
+      console.log(error);
       toast.error(error.message ?? "something went wrong");
     },
   });
@@ -43,7 +44,7 @@ const WishlistProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const isExists = (productId: string) => {
-    const list = data?.data.find(
+    const list = getAllWishlist?.data.find(
       (list: TWishlist) => list.product._id === productId,
     );
 
@@ -53,7 +54,7 @@ const WishlistProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <WishlistContext.Provider
       value={{
-        wishlist: data?.data,
+        wishlist: getAllWishlist?.data,
         addProductToWishlist,
         isLoading: !!isLoading || !!removePending || !createPending,
         removeProductFromWishlist,

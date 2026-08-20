@@ -20,7 +20,9 @@ const SectionHeading = ({ heading, subHeading, link }: IProps) => {
       {link && (
         <Link href={link}>
           <div className="flex items-center text-gray-500 font-medium text-[14px] hover:text-primary-hover transition-all duration-300">
-            <span className="text-[14px]">Explore More</span>
+            <Link href={"/products"} className="text-[14px]">
+              Explore More
+            </Link>
             <IoChevronDown size={16} className="mt-0.5" />
           </div>
         </Link>

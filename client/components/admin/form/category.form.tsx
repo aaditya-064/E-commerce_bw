@@ -35,7 +35,7 @@ const CategoryForm = () => {
     mutationKey: ["Create"],
     onSuccess: (data) => {
       toast.success(data?.message ?? "Category created successfully");
-      router.push("/category");
+      router.push("/admin/");
     },
     onError: (error: any) => {
       toast.error(error?.message ?? "Invalid Category");
@@ -43,8 +43,11 @@ const CategoryForm = () => {
   });
 
   const onSubmit = (data: TCategory) => {
-    console.log(data);
-    // mutate(data);
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("description", data?.description || "");
+    formData.append("logo", (data.logo as any)[0]);
+    mutate(formData);
     console.log("category created");
   };
 

@@ -30,11 +30,13 @@ const Input: FC<IProps> = ({
   const [show, setShow] = useState(false);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div
+      className={`flex ${type !== "checkbox" ? "flex-col" : "items-center gap-3 mb-4"} gap-2`}
+    >
       <label htmlFor={id} className="text-[14px] font-normal tracking-wide">
         {label}
       </label>
-      <div className="flex flex-col relative">
+      <div className={`flex flex-col relative`}>
         <input
           type={type === "password" && show ? "text" : type}
           id={id}

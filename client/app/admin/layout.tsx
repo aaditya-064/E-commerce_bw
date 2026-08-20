@@ -14,7 +14,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <nav className="w-full h-14 border-b border-gray-300">
           <Header />
         </nav>
-        <section className="h-[calc(h-screen-64px)] absolute top-16 z-1 overflow-y-auto pl-2">
+        <section className="h-[calc(h-screen-64px)] absolute top-16 z-1 overflow-y-auto pl-2 ml-2">
           {children}
         </section>
       </section>

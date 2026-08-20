@@ -11,12 +11,8 @@ export const productSchema = yup.object({
     .min(30)
     .max(500),
   cover_image: yup.mixed().required("Cover Image is required"),
-  category: yup.object({
-    name: yup.string(),
-  }),
-  brand: yup.object({
-    name: yup.string(),
-  }),
+  category: yup.string(),
+  brand: yup.string(),
   images: yup.array().of(imageSchema).optional().nullable(),
   new_arrival: yup.boolean().default(true),
   is_featured: yup.boolean().default(false),

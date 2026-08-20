@@ -48,22 +48,23 @@ const Nav = () => {
           return <NavItem key={link.route} item={link} />;
         })}
       </div>
-      <div className="flex items-center gap-4">
-        <Link href={"/wishlist"}>
-          <IoMdHeart
-            title="wishlist"
-            size={26}
-            className="mt-0.5 cursor-pointer text-primary"
-          />
-        </Link>
-        <Link href={"/cart"}>
-          <HiShoppingBag
-            title="cart"
-            size={26}
-            className="cursor-pointer text-primary"
-          />
-        </Link>
-        {/* <Image
+      {user ? (
+        <div className="flex items-center gap-4">
+          <Link href={"/wishlist"}>
+            <IoMdHeart
+              title="wishlist"
+              size={26}
+              className="mt-0.5 cursor-pointer text-primary"
+            />
+          </Link>
+          <Link href={"/cart"}>
+            <HiShoppingBag
+              title="cart"
+              size={26}
+              className="cursor-pointer text-primary"
+            />
+          </Link>
+          {/* <Image
                     src={user.src || "/profile.png"}
                     alt="user profile"
                     height={500}
@@ -72,8 +73,14 @@ const Nav = () => {
                     className="w-10 cursor-pointer text-primary "
 
                 /> */}
-        <AuthSection />
-      </div>
+          <AuthSection />
+        </div>
+      ) : (
+        <div className="flex text-white text-center gap-5">
+          <Link href="/login">Login</Link>
+          <Link href="/sign-up">Register</Link>
+        </div>
+      )}
     </nav>
   );
 };

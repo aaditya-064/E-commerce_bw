@@ -1,5 +1,5 @@
 "use client";
-import { create } from "@/api/category.api";
+import { create } from "@/api/product.api";
 import Button from "@/components/common/button";
 import Input from "@/components/common/input";
 import { productSchema } from "@/schemas/product.schema";
@@ -23,28 +23,32 @@ const ProductForm = () => {
     resolver: yupResolver(productSchema),
   });
 
-  const { data, isPending, error, mutate } = useMutation({
+  const { isPending, error, mutate } = useMutation({
     mutationFn: create,
     mutationKey: ["Create"],
-    onSuccess: (data) => {
-      toast.success(data?.message ?? "Category created successfully");
-      router.push("/category");
+    onSuccess: (response) => {
+      toast.success(response?.message ?? "Product created successfully");
+      router.push("/admin/");
     },
     onError: (error: any) => {
-      toast.error(error?.message ?? "Invalid Category");
+      toast.error(error?.message ?? "Invalid Product");
+      console.log(error);
     },
   });
 
   const onSubmit = (data: TProduct) => {
     console.log(data);
-    // const formData = new FormData();
-    // formData.append("name", data.name);
-    // formData.append("price", data.price);
-    // formData.append("description", data.description);
-    // formData.append("cover_image", data.cover_image);
-    // formData.append("new_arrival", data.new_arrival);
-    // formData.append("is_featured", data.is_featured);
-    console.log("category created");
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("price", String(data.price));
+    formData.append("description", data.description);
+    formData.append("brand", data?.brand ?? "");
+    formData.append("category", data?.category ?? "");
+    formData.append("cover_image", (data.cover_image as any)[0]);
+    formData.append("new_arrival", String(data.new_arrival));
+    formData.append("is_featured", String(data.is_featured));
+    mutate(formData);
+    console.log("product created");
   };
 
   return (
@@ -77,6 +81,7 @@ const ProductForm = () => {
           register={register}
           error={errors?.description?.message}
         />
+
         <Input
           label="Cover Image"
           name="cover_image"
@@ -87,6 +92,24 @@ const ProductForm = () => {
           error={errors?.cover_image?.message}
         />
         <Input
+          label="Brand"
+          name="brand"
+          id="brand"
+          type="text"
+          placeholder="Enter the brand"
+          register={register}
+          error={errors?.brand?.message}
+        />
+        <Input
+          label="Category"
+          name="category"
+          id="category"
+          type="text"
+          placeholder="Enter the category"
+          register={register}
+          error={errors?.category?.message}
+        />
+        {/* <Input
           label="Images"
           name="images"
           id="images"
@@ -94,7 +117,7 @@ const ProductForm = () => {
           placeholder="Upload product pictures"
           register={register}
           error={errors?.images?.message}
-        />
+        /> */}
         <Input
           label="New Arrival"
           name="new_arrival"
@@ -108,13 +131,13 @@ const ProductForm = () => {
           label="Is Featured"
           name="is_featured"
           id="is_featured"
-          type="file"
+          type="checkbox"
           placeholder="Is Featured?"
           register={register}
           error={errors?.is_featured?.message}
         />
         <div>
-          <Button label="Create Brand" type="submit" />
+          <Button label="Create Product" type="submit" />
         </div>
       </form>
     </div>

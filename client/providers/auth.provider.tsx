@@ -24,6 +24,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     onSuccess: (response) => {
       toast.success(response.message ?? "Logout successful");
       router.replace("/");
+      window.location.replace("/");
     },
     onError: (error: any) => {
       toast.error(error.message ?? "something went wrong");

@@ -4,14 +4,15 @@ import CategoryCard from "./card";
 import { useQuery } from "@tanstack/react-query";
 import { get } from "@/api/category.api";
 import { TCategory } from "@/types/category.types";
+import { useProduct } from "@/hooks/product.hook";
 
 const CategoryList = () => {
+  const { productByCategory } = useProduct();
+  console.log(productByCategory);
   const { isLoading, data } = useQuery({
     queryFn: get,
     queryKey: ["get-all-category"],
   });
-
-  console.log(data);
 
   return (
     <>
