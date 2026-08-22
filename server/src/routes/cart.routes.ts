@@ -14,10 +14,10 @@ const router = express.Router();
 
 //* .single use garyo bhani "req.file" ma file aauxa
 //* .array use garyo bhani "req.files" ma files aauxa
-router.get("/:id", authenticate(), get);
+router.get("/", authenticate(), get);
 router.post("/", authenticate(), create);
 router.post("/add", authenticate(), addQuantity);
-router.delete("/remove/:userId/:productId", authenticate(), removeProduct);
+router.delete("/remove/:productId", authenticate(), removeProduct);
 //delete whole cart
 router.delete("/delete", authenticate(), drop);
 // router.patch("/update", updateBrand);

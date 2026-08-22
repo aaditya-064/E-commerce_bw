@@ -7,11 +7,11 @@ import AppError from "../utils/appError.utils";
 
 export const create = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { items } = req.body;
+    const { data } = req.body;
     const user_id = req?.user?._id;
     const existingCart = await Cart.findOne({ user: user_id });
     if (existingCart) {
-      existingCart.items = items;
+      existingCart.items = data;
       await existingCart.save();
       return sendResponse(res, {
         message: "Cart updated successfully",
@@ -21,7 +21,7 @@ export const create = catchAsync(
         },
       });
     }
-    const cart = await Cart.create({ user: user_id, items });
+    const cart = await Cart.create({ user: user_id, items: data });
 
     sendResponse(res, {
       message: "Cart created successfully",
@@ -107,11 +107,9 @@ export const removeProduct = catchAsync(
 
 export const drop = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { productId } = req.params;
     const userId = req?.user?._id;
     const cart = await Cart.findOneAndDelete({
       user: userId,
-      "items.product": productId,
     });
 
     if (!cart) {
