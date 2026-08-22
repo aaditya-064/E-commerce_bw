@@ -7,10 +7,12 @@ import {
 } from "@/api/wishlist.api";
 import WishlistContext from "@/context/wishlist.context";
 import { TWishlist } from "@/types/wishlist.type";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const WishlistProvider = ({ children }: { children: React.ReactNode }) => {
+  const queryClient = useQueryClient();
+
   const { isLoading, data: getAllWishlist } = useQuery({
     queryFn: getWishlist,
     queryKey: ["get-wishlist"],
@@ -21,6 +23,7 @@ const WishlistProvider = ({ children }: { children: React.ReactNode }) => {
     mutationFn: addToWishlist,
     onSuccess: (response) => {
       toast.success(response.message ?? "product added to wishlist");
+      queryClient.invalidateQueries({ queryKey: ["get-wishlist"] });
     },
     onError: (error: any) => {
       console.log(error);
@@ -32,6 +35,7 @@ const WishlistProvider = ({ children }: { children: React.ReactNode }) => {
     mutationFn: removeFromWishlist,
     onSuccess: (response) => {
       toast.success(response.message ?? "product removed from wishlist");
+      queryClient.invalidateQueries({ queryKey: ["get-wishlist"] });
     },
   });
 
