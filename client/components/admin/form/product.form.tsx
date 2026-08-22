@@ -47,7 +47,11 @@ const ProductForm = () => {
     formData.append("cover_image", (data.cover_image as any)[0]);
     formData.append("new_arrival", String(data.new_arrival));
     formData.append("is_featured", String(data.is_featured));
-    mutate(formData);
+    mutate({
+      data: formData,
+      categoryId: data.category ?? "",
+      brandId: data.brand ?? "",
+    });
     console.log("product created");
   };
 
